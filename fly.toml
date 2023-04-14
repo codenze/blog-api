@@ -1,4 +1,4 @@
-# fly.toml file generated for weathered-firefly-2748 on 2023-04-12T03:35:39+05:00
+# fly.toml file generated for weathered-firefly-2748 on 2023-04-15T04:00:45+05:00
 
 app = "weathered-firefly-2748"
 kill_signal = "SIGINT"

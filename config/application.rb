@@ -11,9 +11,16 @@ module MyApi
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    config.session_store :cookie_store, key: '_interslice_session'
+    config.session_store :cookie_store, key: '_my_api_session'
     config.middleware.use ActionDispatch::Cookies
-    config.middleware.use config.session_store, config.session_options
+    config.middleware.use config.session_store, config.session_options.merge({
+      same_site: :none,
+      secure: true
+    })
+
+    config.action_dispatch.default_headers = {
+      'Access-Control-Allow-Origin' => 'https://6439d3f0bb74eb00085a2070--stalwart-gumption-b1f965.netlify.app'
+    }
 
 
     # Configuration for the application, engines, and railties goes here.
