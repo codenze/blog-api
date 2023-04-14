@@ -4,25 +4,25 @@ class LikesController < ApplicationController
 
   # GET /likes
   def index
-    @likes = Like.all
+    @likes = Like.all.order(updated_at: :desc)
     render json: @likes.as_json(include: [:user, post: { include: [:user] }, comment: { include: [:user, post: { include: [:user] }] } ])
   end
 
   def user_likes
     @user = User.find(params[:user_id])
-    @likes = @user.likes
+    @likes = @user.likes.order(updated_at: :desc)
     render json: @likes.as_json(include: [:user, post: { include: [:user] }, comment: { include: [:user, post: { include: [:user] }] } ])
   end
 
   def post_likes
     @post = Post.find(params[:post_id])
-    @likes = @post.likes
+    @likes = @post.likes.order(updated_at: :desc)
     render json: @likes.as_json(include: [:user, post: { include: [:user] }, comment: { include: [:user, post: { include: [:user] }] } ])
   end
 
   def comment_likes
     @comment = Comment.find(params[:comment_id])
-    @likes = @comment.likes
+    @likes = @comment.likes.order(updated_at: :desc)
     render json: @likes.as_json(include: [:user, post: { include: [:user] }, comment: { include: [:user, post: { include: [:user] }] } ])
   end
 

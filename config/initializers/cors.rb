@@ -17,7 +17,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'https://6435dfa3a39a7f0008dbb8e9--stalwart-gumption-b1f965.netlify.app' # Replace with the actual URL of your client application
+    origins 'http://localhost:3001' # Replace with the actual URL of your client application
     resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
   end
 end

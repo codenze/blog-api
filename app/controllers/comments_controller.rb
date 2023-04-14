@@ -4,24 +4,24 @@ class CommentsController < ApplicationController
 
   # GET /comments
   def index
-    @comments = Comment.all
+    @comments = Comment.all.order(updated_at: :desc)
     render json: @comments.as_json(include: [:user, :parent_comment, replies: { include: [:user] }, post: { include: [:user] } ])
   end
 
   def post_comments
     @post = Post.find(params[:post_id])
-    @comments = @post.comments
+    @comments = @post.comments.order(updated_at: :desc)
     render json: @comments.as_json(include: [:post, :user, :parent_comment, replies: { include: [:user] }])
   end
 
   def index_comments
-    @comments = Comment.all
+    @comments = Comment.all.order(updated_at: :desc)
     render json: @comments.as_json(include: [:user, :parent_comment, replies: { include: [:user] }, post: { include: [:user] } ])
   end
 
   def user_comments
     @user = User.find(params[:user_id])
-    @comments = @user.comments
+    @comments = @user.comments.order(updated_at: :desc)
     render json: @comments.as_json(include: [:user, :parent_comment, replies: { include: [:user] }, post: { include: [:user] } ])
   end
 
@@ -64,6 +64,6 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:body, :user_id, :post_id, :parent_comment_id)
+      params.require(:comment).permit(:body, :status, :user_id, :post_id, :parent_comment_id)
     end
 end

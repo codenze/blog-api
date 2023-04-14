@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.all
+    @posts = Post.all.order(updated_at: :desc)
     render json: @posts.to_json(include: {
       user: {},
       parent_post: { include: {user: {}}}
@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   end
 
   def userindex
-    @users = User.all
+    @users = User.all.order(updated_at: :desc)
     render json: @users
   end
 
@@ -35,7 +35,7 @@ class PostsController < ApplicationController
 
   def user_posts
     @user = User.find(params[:user_id])
-    @posts = @user.posts
+    @posts = @user.posts.order(updated_at: :desc)
     render json: @posts.to_json(include: {
       user: {},
       parent_post: { include: {user: {}}}
@@ -46,7 +46,7 @@ class PostsController < ApplicationController
   def moderator_posts
     moderator = User.find(params[:moderator_id])
     status = params[:status]
-    @posts = Post.where(moderator: moderator, status: status)
+    @posts = Post.where(moderator: moderator, status: status).order(updated_at: :desc)
   end
 
   # GET /posts/1

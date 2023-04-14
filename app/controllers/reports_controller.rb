@@ -4,25 +4,25 @@ class ReportsController < ApplicationController
 
   # GET /reports
   def index
-    @reports = Report.all
+    @reports = Report.all.order(updated_at: :desc)
     render json: @reports.as_json(include: [:user, post: { include: [:user] }, comment: { include: [:user, post: { include: [:user] }] } ])
   end
 
   def user_reports
     @user = User.find(params[:user_id])
-    @reports = @user.reports
+    @reports = @user.reports.order(updated_at: :desc)
     render json: @reports.as_json(include: [:user, post: { include: [:user] }, comment: { include: [:user, post: { include: [:user] }] } ])
   end
 
   def post_reports
     @post = Post.find(params[:post_id])
-    @reports = @post.reports
+    @reports = @post.reports.order(updated_at: :desc)
     render json: @reports.as_json(include: [:user, post: { include: [:user] }, comment: { include: [:user, post: { include: [:user] }] } ])
   end
 
   def comment_reports
     @comment = Comment.find(params[:comment_id])
-    @reports = @comment.reports
+    @reports = @comment.reports.order(updated_at: :desc)
     render json: @reports.as_json(include: [:user, post: { include: [:user] }, comment: { include: [:user, post: { include: [:user] }] } ])
   end
 
