@@ -7,8 +7,6 @@ Rails.application.routes.draw do
     resources :reports, only: [:index], controller: 'reports', action: 'user_reports'
   end
 
-  get 'moderator/:moderator_id/:status', to: 'posts#moderator_posts', as: 'moderator_posts'
-
   resources :posts, only: [] do
     resources :comments, only: [:index], controller: 'comments', action: 'post_comments'
     resources :likes, only: [:index], controller: 'likes', action: 'post_likes'

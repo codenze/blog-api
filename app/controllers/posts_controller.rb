@@ -43,11 +43,7 @@ class PostsController < ApplicationController
   end
 
 
-  def moderator_posts
-    moderator = User.find(params[:moderator_id])
-    status = params[:status]
-    @posts = Post.where(moderator: moderator, status: status).order(updated_at: :desc)
-  end
+
 
   # GET /posts/1
   def show
